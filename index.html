@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>NONOSLAM</title>
+<meta name="description" content="NONOSLAM — nonogram puzzles for your phone. Every puzzle is unique and solvable by logic alone. Classic mode and beat-the-clock Slam mode.">
+<meta name="theme-color" content="#0b0e17" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f4f9" media="(prefers-color-scheme: light)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NONOSLAM">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<!-- BEGIN APP -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M15 14l4-4-4-4"/><path d="M19 10h-9a5 5 0 0 0 0 10h3"/></symbol>
+    <symbol id="i-fill" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></symbol>
+    <symbol id="i-pan" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></symbol>
+    <symbol id="i-hint" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.8.6 1.5 1.6 1.5 2.6V17h4v-.5c0-1 .7-2 1.5-2.6A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div id="app">
+
+  <!-- ================= HOME ================= -->
+  <section id="screen-home" class="screen home active">
+    <div class="scroll">
+      <div>
+        <h1 class="logo"><span>Nono</span><span class="slam">slam</span></h1>
+        <div class="tagline">Nonogram puzzles. Pure logic, never a guess.</div>
+      </div>
+
+      <div class="seg mode" id="mode-seg" role="tablist" aria-label="Game mode">
+        <button data-mode="classic" class="active" role="tab">Classic</button>
+        <button data-mode="slam" role="tab">Slam</button>
+      </div>
+      <p class="mode-desc" id="mode-desc">Solve at your own pace. Best times are kept per size.</p>
+
+      <div class="picker">
+        <label>Grid size</label>
+        <div class="seg" id="size-seg">
+          <button data-size="5">5×5</button>
+          <button data-size="10" class="active">10×10</button>
+          <button data-size="15">15×15</button>
+          <button data-size="20">20×20</button>
+          <button data-size="25">25×25</button>
+        </div>
+      </div>
+      <div class="picker">
+        <label>Difficulty</label>
+        <div class="seg" id="diff-seg">
+          <button data-diff="easy">Easy</button>
+          <button data-diff="normal" class="active">Normal</button>
+          <button data-diff="hard">Hard</button>
+        </div>
+      </div>
+
+      <div class="stack">
+        <button id="btn-continue" class="btn" hidden>Continue</button>
+        <button id="btn-play" class="btn primary">Play</button>
+        <div class="best-line" id="home-best"></div>
+      </div>
+
+      <nav class="home-nav">
+        <button id="nav-howto">How to play</button>
+        <button id="nav-stats">Stats</button>
+        <button id="nav-settings">Settings</button>
+        <button id="nav-code">Puzzle code</button>
+      </nav>
+      <div class="version">NONOSLAM v1.0</div>
+    </div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section id="screen-game" class="screen">
+    <header class="game-top">
+      <button id="btn-back" class="icon-btn" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+      <div class="hud">
+        <div id="hud-timer" class="hud-timer">00:00</div>
+        <div id="hud-sub" class="hud-sub"></div>
+      </div>
+      <div id="hud-slam" class="hud-slam" hidden>
+        <div class="score" id="hud-score">0</div>
+        <div class="streak" id="hud-streak">×1.0</div>
+      </div>
+      <button id="btn-pause" class="icon-btn" aria-label="Pause"><svg><use href="#i-pause"/></svg></button>
+      <button id="btn-menu" class="icon-btn" aria-label="Menu"><svg><use href="#i-dots"/></svg></button>
+    </header>
+    <div id="board-wrap" class="board-wrap">
+      <canvas id="board"></canvas>
+      <div id="drag-badge" class="drag-badge" hidden>1</div>
+    </div>
+    <footer class="toolbar" id="toolbar">
+      <div class="row" style="gap:2px">
+        <button id="btn-undo" class="tool" aria-label="Undo" disabled><svg><use href="#i-undo"/></svg></button>
+        <button id="btn-redo" class="tool" aria-label="Redo" disabled><svg><use href="#i-redo"/></svg></button>
+      </div>
+      <div class="tool-group" role="radiogroup" aria-label="Tool">
+        <button id="tool-fill" class="tool active" data-tool="fill" aria-label="Fill tool"><svg><use href="#i-fill"/></svg></button>
+        <button id="tool-x" class="tool" data-tool="x" aria-label="Mark X tool"><svg><use href="#i-x"/></svg></button>
+        <button id="tool-pan" class="tool" data-tool="pan" aria-label="Pan tool"><svg><use href="#i-pan"/></svg></button>
+      </div>
+      <div class="row" style="gap:2px">
+        <button id="btn-hint" class="tool" aria-label="Hint"><svg><use href="#i-hint"/></svg><span class="badge" id="hint-badge" hidden></span></button>
+        <button id="btn-fit" class="tool" aria-label="Zoom to fit"><svg><use href="#i-fit"/></svg></button>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section id="screen-stats" class="screen">
+    <div class="topbar">
+      <button class="icon-btn nav-home" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+      <h2>Stats</h2>
+    </div>
+    <div class="scroll stack" id="stats-body"></div>
+  </section>
+
+  <!-- ================= SETTINGS ================= -->
+  <section id="screen-settings" class="screen">
+    <div class="topbar">
+      <button class="icon-btn nav-home" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+      <h2>Settings</h2>
+    </div>
+    <div class="scroll">
+      <div class="card" id="settings-body"></div>
+      <p class="muted center" style="margin-top:16px;font-size:13px">Keyboard on desktop: <kbd>Z</kbd> undo · <kbd>Y</kbd> redo · <kbd>X</kbd> switch tool · <kbd>H</kbd> hint · <kbd>F</kbd> fit · right-click marks X · scroll to zoom</p>
+    </div>
+  </section>
+
+  <!-- ================= HOW TO PLAY ================= -->
+  <section id="screen-howto" class="screen">
+    <div class="topbar">
+      <button class="icon-btn nav-home" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+      <h2>How to play</h2>
+    </div>
+    <div class="scroll howto">
+      <p>A nonogram is a grid where some cells are filled and the rest are empty. The numbers beside each row and above each column tell you the lengths of the <b>runs of filled cells</b> in that line, in order. Runs are separated by at least one empty cell.</p>
+      <div class="center" id="howto-example"></div>
+      <p class="muted" style="font-size:14px">Row <b>2 1</b> means: a run of two filled cells, then at least one gap, then a single filled cell. Column <b>4</b> means four in a row somewhere in that column.</p>
+      <h3>Controls</h3>
+      <ul>
+        <li><b>Tap</b> a cell to fill it. Tap again to clear it.</li>
+        <li><b>Drag</b> along a row or column to paint several cells. A counter shows how many you've painted.</li>
+        <li>Switch to the <b>X tool</b> to mark cells you know are empty. Or <b>long-press</b> to use the other tool for that stroke.</li>
+        <li><b>Pinch</b> to zoom and <b>two-finger drag</b> to pan on big boards. The clue numbers stay put while you scroll. The pan tool does the same with one finger.</li>
+        <li>Clue numbers grey out when their run is placed. When a line is complete, its leftover cells turn to X automatically (optional).</li>
+        <li>Stuck? <b>Hint</b> points at a mistake if you've made one, or reveals one cell a line can prove right now.</li>
+      </ul>
+      <h3>Solving tips</h3>
+      <ul>
+        <li><b>Overlap:</b> a clue of 8 in a 10-wide row must cover the middle six cells no matter where it sits. Fill those first.</li>
+        <li><b>Edges:</b> if a filled cell touches the border, its run extends inward by the clue length.</li>
+        <li><b>Mark the X's:</b> cells that can't be filled are just as useful as ones that must be. Every puzzle here is solvable with logic alone.</li>
+        <li><b>Zero</b> means the line is completely empty.</li>
+      </ul>
+      <h3>Slam mode</h3>
+      <p>Beat the clock. Solve a puzzle and time is added; wrong fills cost time and reset your streak. Each clean solve raises the multiplier, and finishing fast earns a speed bonus. When the clock hits zero, the run is over and your score goes on the board.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- modal + toast -->
+<div id="modal-backdrop" class="modal-backdrop" hidden><div id="modal" class="modal" role="dialog" aria-modal="true"></div></div>
+<div id="toast" hidden></div>
+<!-- END APP -->
+<script src="src/nonogram.js"></script>
+<script src="src/audio.js"></script>
+<script src="src/board.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

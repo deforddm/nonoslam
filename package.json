@@ -1,0 +1,13 @@
+{
+  "name": "nonoslam",
+  "version": "1.0.0",
+  "description": "NONOSLAM — nonogram puzzles for your phone. Unique, logic-only puzzles; Classic and Slam modes.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/engine.test.js",
+    "bench": "node tests/bench.js",
+    "build": "node tools/build.js",
+    "serve": "npx serve ."
+  },
+  "license": "UNLICENSED"
+}
